@@ -1,6 +1,6 @@
 # An ansible playbook that sets up a tricked-out vim/zsh/tmux environment
 #
-# Author: Luke Macken <lmacken@redhat.com>
+# Based on work by: Luke Macken <lmacken@redhat.com>
 ---
 
 - name: Bootstrapping developer environment
@@ -14,16 +14,18 @@
     sudo: False
 
   - name: Installing zsh, vim, git, tmux, etc.
-    action: yum pkg=$item state=latest
+    apt: pkg={{item}} state=installed update_cache=yes
+    sudo: True
     with_items:
     - zsh
-    - vim-enhanced
+    - vim
     - git
     - tmux
     - htop
+    - curl
 
   - name: Changing the default shell to zsh
-    action: user shell=/bin/zsh user=${whoami.stdout}
+    user: name=vagrant shell=/bin/zsh
 
 - name: Entering Plugin Nirvana
   hosts: all
@@ -31,14 +33,15 @@
 
   tasks:
 
-  - name: Backing up existing ~/.zshrc
-    action: shell if [ -f ~/.zshrc ]; then mv ~/.zshrc{,.orig}; fi
-
   - name: Installing oh-my-zsh (https://github.com/robbyrussell/oh-my-zsh)
     action: git repo=https://github.com/robbyrussell/oh-my-zsh dest=~/.oh-my-zsh
 
+  - name: Installing Prose Theme for zsh
+    action: shell curl https://raw.githubusercontent.com/tijptjik/oh-my-zsh/master/themes/prose.zsh-theme > ~/.oh-my-zsh/prose.zsh.theme
+
   - name: Creating new ~/.zshrc
-    action: shell cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+    action: shell curl https://gist.githubusercontent.com/tijptjik/7f080665dbea81ae97f8/raw > ~/.zshrc
 
   - name: Installing spf13-vim, The Ultimate Vim Distribution (http://vim.spf13.com)
     action: shell curl http://j.mp/spf13-vim3 -L -o - | sh
+

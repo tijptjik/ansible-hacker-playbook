@@ -26,6 +26,7 @@
 
   - name: Changing the default shell to zsh
     user: name=vagrant shell=/bin/zsh
+    sudo: True
 
 - name: Entering Plugin Nirvana
   hosts: all

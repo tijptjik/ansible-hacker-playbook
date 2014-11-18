@@ -43,6 +43,6 @@
   - name: Creating new ~/.zshrc
     action: shell curl https://gist.githubusercontent.com/tijptjik/7f080665dbea81ae97f8/raw > ~/.zshrc
 
-  - name: Installing spf13-vim, The Ultimate Vim Distribution (http://vim.spf13.com)
-    action: shell curl http://j.mp/spf13-vim3 -L -o - | sh
+  # - name: Installing spf13-vim, The Ultimate Vim Distribution (http://vim.spf13.com)
+    # action: shell curl http://j.mp/spf13-vim3 -L -o - | sh
 

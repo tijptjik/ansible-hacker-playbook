@@ -38,7 +38,7 @@
     action: git repo=https://github.com/robbyrussell/oh-my-zsh dest=~/.oh-my-zsh
 
   - name: Installing Prose Theme for zsh
-    action: shell curl https://raw.githubusercontent.com/tijptjik/oh-my-zsh/master/themes/prose.zsh-theme > ~/.oh-my-zsh/prose.zsh.theme
+    action: shell curl https://raw.githubusercontent.com/tijptjik/oh-my-zsh/master/themes/prose.zsh-theme > ~/.oh-my-zsh/themes/prose.zsh-theme
 
   - name: Creating new ~/.zshrc
     action: shell curl https://gist.githubusercontent.com/tijptjik/7f080665dbea81ae97f8/raw > ~/.zshrc
